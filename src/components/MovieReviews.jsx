@@ -5,7 +5,7 @@ import ErrorMessage from "./ErrorMessage.jsx";
 import css from "./MovieReviews.module.css";
 import { fetchArticlesReviews } from "../Api.js";
 const MovieReviews = () => {
-  const { moviesId } = useParams();
+  const { movieId } = useParams();
   const [movieData, setMovieData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -13,9 +13,9 @@ const MovieReviews = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        if (moviesId !== undefined) {
+        if (movieId !== undefined) {
           setIsLoading(true);
-          const data = await fetchArticlesReviews(moviesId);
+          const data = await fetchArticlesReviews(movieId);
           setMovieData(data);
         }
       } catch (err) {
@@ -26,7 +26,7 @@ const MovieReviews = () => {
     }
 
     fetchData();
-  }, [fetchArticlesReviews, moviesId]);
+  }, [movieId]);
   return (
     <>
       {isLoading && <Loader />}

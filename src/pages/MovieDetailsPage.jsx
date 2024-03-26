@@ -7,19 +7,19 @@ import MovieCast from "../components/MovieCast.jsx";
 import MovieReviews from "../components/MovieReviews.jsx";
 import { fetchArticlesId } from "../Api.js";
 const MovieDetailsPage = () => {
-  const { moviesId } = useParams();
+  const { movieId } = useParams();
   const [movieData, setMovieData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const location = useLocation();
-  const backLinkRef = useRef(location.state ?? "/");
+  const backLinkRef = useRef(location.state);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        if (moviesId !== undefined) {
+        if (movieId !== undefined) {
           setIsLoading(true);
-          const data = await fetchArticlesId(moviesId);
+          const data = await fetchArticlesId(movieId);
           setMovieData(data);
         }
       } catch (err) {
@@ -30,7 +30,7 @@ const MovieDetailsPage = () => {
     }
 
     fetchData();
-  }, [fetchArticlesId, moviesId]);
+  }, [movieId]);
   const getImageUrl = (imagePath, size = "w500") => {
     return `https://image.tmdb.org/t/p/${size}/${imagePath}`;
   };

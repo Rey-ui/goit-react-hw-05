@@ -5,7 +5,7 @@ import Loader from "../components/Loader.jsx";
 import MovieList from "../components/MovieList.jsx";
 import { useSearchParams } from "react-router-dom";
 import css from "./MoviesPage.module.css";
-import { fetchArticlesByQuery } from "../Api.js";
+import { fetchMoviesByQuery } from "../Api.js";
 const MoviesPage = () => {
   const [movies, setMovies] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +19,7 @@ const MoviesPage = () => {
     async function fetchDataByQuery() {
       try {
         setIsLoading(true);
-        const data = await fetchArticlesByQuery(searchQuery);
+        const data = await fetchMoviesByQuery(searchQuery);
 
         setMovies(data);
       } catch (err) {
@@ -63,7 +63,7 @@ const MoviesPage = () => {
       </Formik>
       {isError && <ErrorMessage />}
       {isLoading && <Loader />}
-      <MovieList movies={movies} />
+      {movies && movies.length > 0 && <MovieList movies={movies} />}
     </div>
   );
 };

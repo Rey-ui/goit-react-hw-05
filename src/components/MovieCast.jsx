@@ -5,7 +5,7 @@ import css from "./MovieCast.module.css";
 import ErrorMessage from "./ErrorMessage.jsx";
 import { fetchArticlesCredits } from "../Api.js";
 const MovieCast = () => {
-  const { moviesId } = useParams();
+  const { movieId } = useParams();
   const [movieData, setMovieData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -13,9 +13,9 @@ const MovieCast = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        if (moviesId !== undefined) {
+        if (movieId !== undefined) {
           setIsLoading(true);
-          const data = await fetchArticlesCredits(moviesId);
+          const data = await fetchArticlesCredits(movieId);
           setMovieData(data);
         }
       } catch (err) {
@@ -26,7 +26,7 @@ const MovieCast = () => {
     }
 
     fetchData();
-  }, [fetchArticlesCredits, moviesId]);
+  }, [movieId]);
   const getImageUrl = (imagePath, size = "w200") => {
     return `https://image.tmdb.org/t/p/${size}/${imagePath}`;
   };
